@@ -348,7 +348,154 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
   .qrbox{width:110px;height:110px}
   .step{min-height:48vh}
 }
+
+
+/* ---------- 3D Karama bag (How it works) ---------- */
+.phone-wrap{display:flex;align-items:flex-end;justify-content:center}
+.bag3d{position:relative;width:250px;height:380px;margin-right:-40px;z-index:4;perspective:900px;cursor:grab;touch-action:pan-y;user-select:none;flex:none}
+.bag3d:active{cursor:grabbing}
+.b3-float{position:absolute;left:20px;bottom:76px;width:210px;height:230px;transform-style:preserve-3d;animation:b3float 5s ease-in-out infinite}
+@keyframes b3float{50%{transform:translateY(-8px)}}
+.b3-spin{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(-14deg) rotateY(-24deg);transition:transform 1.1s var(--ease)}
+.b3-spin.drag{transition:none}
+.b3{position:absolute;display:grid;place-items:center;border-radius:6px;overflow:hidden}
+.b3.front,.b3.back{width:210px;height:230px;background:linear-gradient(180deg,#fff 0%,#f7cddc 100%);border:1.5px solid #e7b7c9}
+.b3.front{transform:translateZ(46px)}
+.b3.back{transform:rotateY(180deg) translateZ(46px);background:linear-gradient(180deg,#f9dbe6,#eeb4c9)}
+.b3.right,.b3.left{width:92px;height:230px;left:59px;background:linear-gradient(180deg,#f6d0de,#e9a9c1);border:1.5px solid #e2aac0}
+.b3.right{transform:rotateY(90deg) translateZ(105px)}
+.b3.left{transform:rotateY(-90deg) translateZ(105px)}
+.b3.bottom{width:210px;height:92px;top:69px;background:#e39ab6;transform:rotateX(-90deg) translateZ(115px)}
+.b3.top{width:210px;height:92px;top:69px;background:radial-gradient(circle at 50% 60%,#5a1832,#2a0a18);transform:rotateX(90deg) translateZ(115px)}
+.b3 .band{position:absolute;left:0;right:0;top:46px;height:20px;background:repeating-linear-gradient(90deg,#a3214f 0 9px,#e0457f 9px 18px)}
+.b3.front svg{margin-top:40px;width:80px;height:80px}
+.b3-handle{position:absolute;left:55px;top:-64px;width:100px;height:72px;border:9px solid #a3214f;border-bottom:0;border-radius:60px 60px 0 0}
+.b3-handle.h1{transform:translateZ(32px)}
+.b3-handle.h2{transform:translateZ(-32px);border-color:#7d1a3d}
+.b3-card{position:absolute;top:-34px;width:72px;height:50px;border-radius:7px}
+.b3-card.c1{left:44px;background:#f59ab9;transform:translateZ(10px) rotateZ(-9deg)}
+.b3-card.c2{left:96px;background:#e0457f;transform:translateZ(-6px) rotateZ(7deg)}
+.b3-card.c3{left:76px;top:-44px;width:56px;height:56px;background:#2a0a18;transform:translateZ(2px) rotateZ(-2deg)}
+.b3-tag{position:absolute;bottom:10px;left:0;right:0;text-align:center;font:600 9px/1 var(--body);letter-spacing:.14em;color:var(--rose)}
+.b3-shadow{position:absolute;left:40px;bottom:50px;width:180px;height:22px;border-radius:50%;background:radial-gradient(rgba(42,10,24,.28),transparent 70%);animation:b3shadow 5s ease-in-out infinite}
+@keyframes b3shadow{50%{transform:scale(.9);opacity:.7}}
+.b3-hint{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:12px;color:var(--muted);white-space:nowrap}
+.b3-badge{position:absolute;left:50%;transform:translateX(-50%);bottom:34px;white-space:nowrap;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--plum);box-shadow:0 10px 24px -14px rgba(163,33,79,.5);transition:opacity .4s}
+@media (max-width:900px){.bag3d{width:130px;height:220px;margin-right:-26px}.b3-float{transform:scale(.5);transform-origin:bottom left;animation:none;left:6px;bottom:30px}.b3-shadow{width:100px;left:10px;bottom:22px}.b3-hint,.b3-badge{display:none}}
+@media (prefers-reduced-motion:reduce){.b3-float,.b3-shadow{animation:none}.b3-spin{transition:none}}
+
 @media (prefers-reduced-motion:reduce){.rv{transform:none;opacity:1}.screen{transition:none}}
+
+/* ---------- Karama Kit (exploded view) ---------- */
+[hidden]{display:none!important}
+.kit-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.kit-stage{position:relative;background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px}
+.kit-svg{width:100%;height:auto;display:block}
+.kit-item{transition:transform .5s var(--ease),opacity .4s}
+.kit-stage.sel .kit-item{opacity:.35}
+.kit-stage.sel .kit-item.act{opacity:1}
+.kit-item[data-c=a].act{transform:translate(-6px,-8px)}
+.kit-item[data-c=b].act{transform:translateY(-10px)}
+.kit-item[data-c=c].act{transform:translate(6px,-8px)}
+.hot{position:absolute;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;border:0;background:var(--pink);color:#fff;font:700 14px var(--body);cursor:pointer;box-shadow:0 0 0 6px rgba(224,69,127,.18);transition:transform .25s var(--ease),background .25s}
+.hot::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--pink);animation:hotPulse 2.4s infinite;pointer-events:none}
+.hot:hover,.hot.act{background:var(--plum);transform:translate(-50%,-50%) scale(1.08)}
+.hot.act::after{border-color:var(--plum)}
+@keyframes hotPulse{0%{opacity:.7;transform:scale(1)}80%,100%{opacity:0;transform:scale(1.6)}}
+.kit-panel{display:grid;gap:18px}
+.corner{display:none;background:#fff;border:1px solid var(--line);border-left:4px solid var(--pink);border-radius:18px;padding:26px}
+.corner.act{display:block;animation:cornerIn .45s var(--ease)}
+@keyframes cornerIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.corner .k{font-family:var(--display);font-stretch:118%;font-size:12px;letter-spacing:.12em;color:var(--pink);text-transform:uppercase}
+.corner h3{font-size:26px;font-weight:600;letter-spacing:-.03em;color:var(--plum);margin:6px 0 8px}
+.corner p{color:var(--muted)}
+.corner ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.corner li{position:relative;padding-left:22px}
+.corner li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;border-radius:3px;background:var(--pink);transform:rotate(45deg)}
+.kit-tabs{display:flex;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px}
+.kit-tabs button{flex:1;border:0;background:none;border-radius:999px;padding:9px 10px;font:600 14px var(--body);color:var(--muted);cursor:pointer}
+.kit-tabs button.on{background:var(--plum);color:#fff}
+.kit-panel .btn{justify-self:start}
+@media (max-width:900px){.kit-grid{grid-template-columns:1fr}}
+
+
+/* ---------- evaluation & KPIs ---------- */
+.bk{display:block;font-family:var(--display);font-stretch:118%;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);font-weight:600}
+.ev-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:stretch}
+.ev-list{display:grid;gap:14px}
+.ev-item{display:flex;gap:18px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--pink);border-radius:18px;padding:22px 24px}
+.ev-n{font-family:var(--display);font-stretch:118%;font-weight:700;font-size:15px;color:var(--pink);padding-top:4px}
+.ev-item h3{font-size:21px;font-weight:600;letter-spacing:-.02em;color:var(--plum);margin:0 0 4px}
+.ev-item p{color:var(--muted);margin:0}
+.kpi{background:var(--plum);color:#fff;border-radius:22px;padding:30px;display:grid;gap:22px;align-content:start}
+.kpi .bk{color:#ff9fc2}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 22px}
+.kpi-grid b{display:block;font-family:var(--display);font-stretch:118%;font-size:clamp(38px,4vw,54px);line-height:1.05;color:#ff9fc2;font-variant-numeric:tabular-nums}
+.kpi-grid small{display:block;margin-top:6px;color:#e2c3cf;font-size:14.5px;line-height:1.45}
+.ev-note{margin-top:22px;font-size:14px;font-style:italic;color:var(--muted)}
+@media (max-width:900px){.ev-grid{grid-template-columns:1fr}}
+@media (max-width:420px){.kpi-grid{grid-template-columns:1fr}}
+.icard.lt .bk{margin-bottom:2px}
+.justify{grid-column:1/-1;border-top:1px solid var(--hair);padding-top:22px;display:grid;gap:8px}
+.justify .bk{color:#ff9fc2}
+.justify p{color:#e2c3cf;font-size:16px;max-width:110ch;margin:0}
+.justify b{color:#fff}
+
+/* ---------- impact strip ---------- */
+.impact-strip{padding:0;background:var(--plum);color:#fbeef3}
+.sadu-band{height:18px;background:repeating-linear-gradient(90deg,#a3214f 0 12px,#e0457f 12px 24px);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='18'%3E%3Cpath d='M0 9 6 3l6 6-6 6zM12 9l6-6 6 6-6 6z'/%3E%3C/svg%3E") repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='18'%3E%3Cpath d='M0 9 6 3l6 6-6 6zM12 9l6-6 6 6-6 6z'/%3E%3C/svg%3E") repeat-x;opacity:.9}
+.strip-in{display:grid;grid-template-columns:auto 1fr;gap:10px 22px;align-items:center;padding-top:48px;padding-bottom:48px}
+.strip-in svg{grid-row:span 2}
+.strip-in p{font-size:clamp(19px,2.1vw,26px);line-height:1.35;letter-spacing:-.02em;font-weight:500;max-width:60ch}
+.strip-in .ar{width:fit-content;max-width:100%;justify-self:start;font-size:18px;color:#e2c3cf;font-family:"Segoe UI",Tahoma,"Noto Sans Arabic",sans-serif;letter-spacing:0}
+
+/* ---------- live preview modal ---------- */
+.pv{border:0;border-radius:24px;padding:0;width:min(560px,94vw);max-height:90vh;background:#fff;color:var(--ink);box-shadow:0 40px 80px -30px rgba(42,10,24,.5)}
+.pv::backdrop{background:rgba(42,10,24,.55)}
+.pv[open]{animation:pvIn .35s var(--ease)}
+@keyframes pvIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.pv-head{display:flex;justify-content:space-between;align-items:center;padding:20px 22px 0}
+.pv-head h3{font-size:19px;font-weight:600;color:var(--plum)}
+.pv-x{border:0;background:var(--paper);color:var(--plum);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:14px}
+.pv-tabs{display:flex;gap:6px;margin:16px 22px 0;background:var(--paper);border-radius:999px;padding:5px}
+.pv-tabs button{flex:1;border:0;background:none;border-radius:999px;padding:9px 6px;font:600 13px var(--body);color:var(--rose);cursor:pointer}
+.pv-tabs button.on{background:#fff;color:var(--plum);box-shadow:0 2px 8px rgba(42,10,24,.08)}
+.pv-pane{display:none;padding:22px}
+.pv-pane.on{display:block}
+.note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:12px}
+.scanner{display:grid;justify-items:center;gap:16px}
+.vf{position:relative;width:190px;height:190px;border-radius:20px;background:var(--paper);display:grid;place-items:center;overflow:hidden}
+.vf i{position:absolute;width:26px;height:26px;border:3px solid var(--pink)}
+.vf i:nth-of-type(1){top:10px;left:10px;border-right:0;border-bottom:0}.vf i:nth-of-type(2){top:10px;right:10px;border-left:0;border-bottom:0}
+.vf i:nth-of-type(3){bottom:10px;left:10px;border-right:0;border-top:0}.vf i:nth-of-type(4){bottom:10px;right:10px;border-left:0;border-top:0}
+.vf .line{position:absolute;left:14px;right:14px;height:2px;background:var(--pink);box-shadow:0 0 12px var(--pink);top:14px;opacity:0}
+.vf.go .line{opacity:1;animation:scanY 1.1s ease-in-out 2 alternate}
+@keyframes scanY{to{top:calc(100% - 16px)}}
+.scanned{display:grid;gap:10px}
+.scanned .ok{font-weight:600;color:#1f7a4d;background:#e8f6ee;border-radius:999px;padding:8px 14px;justify-self:start;font-size:14px}
+.lib-row{display:grid;border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.lib-row small{color:var(--muted)}
+.lib-row.ask{background:var(--plum);color:#fff;border-color:var(--plum)}
+.lib-row.ask small{color:#e2c3cf}
+.scanned .btn{justify-self:start;border:1px solid var(--line)}
+.player{display:flex;gap:16px;align-items:center;background:var(--paper);border-radius:18px;padding:18px}
+.pp{flex:none;width:58px;height:58px;border-radius:50%;border:0;background:var(--pink);display:grid;place-items:center;cursor:pointer}
+.pmeta{flex:1;display:grid;gap:2px;min-width:0}
+.pmeta small{color:var(--muted)}
+.pwave{display:flex;align-items:center;gap:3px;height:40px;margin-top:8px}
+.pwave b{flex:1;border-radius:2px;background:#e7b7c9;transition:background .2s}
+.pwave b.on{background:var(--pink)}
+.ptime{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.scards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.scard{position:relative;height:170px;border:0;padding:0;background:none;cursor:pointer;perspective:800px;font:inherit;color:inherit}
+.scard .f,.scard .b{position:absolute;inset:0;border-radius:16px;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .55s var(--ease);display:grid;place-items:center;align-content:center;gap:8px;padding:16px;text-align:center}
+.scard .f{background:#fff;border:1px solid #e7b7c9;overflow:hidden}
+.scard .f b{font-size:14px;color:var(--plum)}
+.scard .band{position:absolute;top:0;left:0;right:0;height:12px;background:repeating-linear-gradient(135deg,#a3214f 0 6px,#e0457f 6px 12px)}
+.scard .b{background:var(--plum);color:#fbeef3;font-size:13.5px;line-height:1.45;transform:rotateY(180deg)}
+.scard.flip .f{transform:rotateY(-180deg)}
+.scard.flip .b{transform:rotateY(0)}
+@media (prefers-reduced-motion:reduce){.hot::after{animation:none}.scard .f,.scard .b{transition:none}}
 </style>
 </head>
 <body>
@@ -374,6 +521,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
       <a href="#top" class="on">Home</a>
       <a href="#problem">Problem</a>
       <a href="#solution">Solution</a>
+      <a href="#kit">The Kit</a>
       <a href="#how">How it works</a>
       <a href="#safe">Ask Safely</a>
       <a href="#impact">Impact</a>
@@ -385,7 +533,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
   </div>
 </nav>
 <div class="drawer" id="drawer">
-  <a href="#top">Home</a><a href="#problem">Problem</a><a href="#solution">Solution</a><a href="#how">How it works</a><a href="#safe">Ask Safely</a><a href="#impact">Impact</a>
+  <a href="#top">Home</a><a href="#problem">Problem</a><a href="#solution">Solution</a><a href="#kit">The Kit</a><a href="#how">How it works</a><a href="#safe">Ask Safely</a><a href="#impact">Impact</a>
   <a class="btn dark" href="#join"><span class="shine"></span>Join Us <span class="arrow">↗</span></a>
 </div>
 
@@ -556,7 +704,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
         <div class="tile"><svg width="26" height="26" viewBox="0 0 26 26"><rect x="3" y="8" width="20" height="15" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 8V6a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
         <span class="k">Pillar 01</span><h3>Karama hybrid kit</h3>
         <dl><dt>Physical</dt><dd>A cloth bag of self-care essentials with visual flashcards built on pictograms for every literacy level.</dd>
-        <dt>Digital</dt><dd>A QR code opens a safe audio and video library, downloadable in advance for offline use.</dd></dl>
+        <dt>Digital</dt><dd>A QR code opens multilingual audio and video resources, with downloadable content for offline access.</dd></dl>
       </article>
       <article class="card rv">
         <div class="tile"><svg width="26" height="26" viewBox="0 0 26 26"><circle cx="9" cy="9" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="11" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 22c0-4 3-7 7-7s7 3 7 7M15 22c0-3 1.5-5 4-5s4 2 4 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
@@ -575,6 +723,151 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 </section>
 
 
+
+<section class="blush" id="kit">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow">Inside the Karama Kit</span>
+      <h2>Three corners in one bag</h2>
+      <p class="lead">Tap a point on the bag to open each corner. Then try the live preview: scan the QR, play a sample, and flip the Sadu cards.</p>
+    </div>
+    <div class="kit-grid">
+      <div class="kit-stage rv" id="kitStage">
+        <svg viewBox="0 0 520 450" class="kit-svg" role="img" aria-label="Exploded view of the Karama Kit bag and its three corners">
+          <defs>
+            <linearGradient id="kbag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f7cddc"/></linearGradient>
+            <pattern id="ksadu" width="24" height="16" patternUnits="userSpaceOnUse"><rect width="24" height="16" fill="#a3214f"/><path d="M0 8 6 2l6 6-6 6zM12 8l6-6 6 6-6 6z" fill="#e0457f"/><path d="M4 8l2-2 2 2-2 2zM16 8l2-2 2 2-2 2z" fill="#fbeef3"/></pattern>
+          </defs>
+          <!-- leader lines -->
+          <g class="kit-lines" stroke="#a3214f" stroke-width="1.2" stroke-dasharray="4 6" fill="none" opacity=".45">
+            <path d="M120 150 C150 200 190 230 220 262"/>
+            <path d="M260 120 V250"/>
+            <path d="M400 150 C370 200 330 230 300 262"/>
+          </g>
+          <!-- bag -->
+          <g class="kit-bag">
+            <path d="M205 262c0-40 22-62 55-62s55 22 55 62" fill="none" stroke="#a3214f" stroke-width="9" stroke-linecap="round"/>
+            <path d="M150 262h220l-16 160a18 18 0 0 1-18 16H184a18 18 0 0 1-18-16z" fill="url(#kbag)" stroke="#e7b7c9" stroke-width="1.5"/>
+            <path d="M154 300h212l-2 22H156z" fill="url(#ksadu)"/>
+            <use href="#mark" x="234" y="350" width="52" height="52"/>
+          </g>
+          <!-- A: physical care -->
+          <g class="kit-item" data-c="a">
+            <rect x="52" y="78" width="70" height="44" rx="14" fill="#fff" stroke="#e7b7c9" stroke-width="1.5"/>
+            <path d="M64 92h46M64 104h30" stroke="#f3c2d4" stroke-width="5" stroke-linecap="round"/>
+            <rect x="130" y="56" width="26" height="78" rx="9" fill="#e0457f"/>
+            <rect x="136" y="44" width="14" height="16" rx="3" fill="#a3214f"/>
+            <rect x="84" y="128" width="64" height="40" rx="12" fill="#fbeef3" stroke="#e0457f" stroke-width="1.5" stroke-dasharray="3 4"/>
+            <path d="M100 148c6-8 12 8 18 0s12 8 18 0" fill="none" stroke="#e0457f" stroke-width="2"/>
+          </g>
+          <!-- B: Sadu pictogram cards -->
+          <g class="kit-item" data-c="b">
+            <rect x="214" y="40" width="70" height="92" rx="10" fill="#fff" stroke="#e7b7c9" stroke-width="1.5" transform="rotate(-10 249 86)"/>
+            <rect x="236" y="34" width="70" height="92" rx="10" fill="#fff" stroke="#e7b7c9" stroke-width="1.5" transform="rotate(6 271 80)"/>
+            <g transform="rotate(6 271 80)">
+              <rect x="236" y="34" width="70" height="12" rx="6" fill="url(#ksadu)"/>
+              <circle cx="271" cy="76" r="14" fill="none" stroke="#e0457f" stroke-width="3"/>
+              <path d="M264 76l5 5 9-10" fill="none" stroke="#a3214f" stroke-width="3" stroke-linecap="round"/>
+              <path d="M250 104h42M256 114h30" stroke="#f3c2d4" stroke-width="4" stroke-linecap="round"/>
+            </g>
+          </g>
+          <!-- C: digital bridge -->
+          <g class="kit-item" data-c="c">
+            <rect x="366" y="54" width="96" height="96" rx="16" fill="#2a0a18"/>
+            <rect x="378" y="66" width="72" height="72" rx="8" fill="#fff"/>
+            <g fill="#2a0a18" transform="translate(386 74) scale(8)"><path d="M0 0h3v3H0zM4 0h3v3H4zM0 4h3v3H0zM4 4h1v1H4zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4zM6 6h1v1H6z"/><path fill="#fff" d="M1 1h1v1H1zM5 1h1v1H5zM1 5h1v1H1z"/></g>
+            <path d="M470 84a14 14 0 0 1 0 22M478 76a26 26 0 0 1 0 38" fill="none" stroke="#e0457f" stroke-width="3" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <button class="hot" data-c="a" style="left:21%;top:13%" aria-label="Corner A: physical care essentials"><span>A</span></button>
+        <button class="hot" data-c="b" style="left:50%;top:5%" aria-label="Corner B: Sadu pictogram cards"><span>B</span></button>
+        <button class="hot" data-c="c" style="left:80%;top:10%" aria-label="Corner C: safe digital bridge"><span>C</span></button>
+      </div>
+
+      <div class="kit-panel rv" aria-live="polite">
+        <article class="corner act" data-c="a">
+          <span class="k">Corner A</span><h3>Physical care essentials</h3>
+          <p>Sustainable personal hygiene products for everyday dignity.</p>
+          <ul><li>Menstrual hygiene supplies</li><li>Sanitizing wipes</li><li>Soothing skin moisturizer and gentle soap for sensitive skin</li><li>A small reusable warm compress to ease period cramps</li></ul>
+        </article>
+        <article class="corner" data-c="b">
+          <span class="k">Corner B</span><h3>Sadu pictogram cards</h3>
+          <p>Durable Sadu pictogram cards made from responsibly sourced, reusable or verified recycled-content materials, built on simple icons so they work at every literacy level.</p>
+          <ul><li>Daily self-care and prevention steps</li><li>Normal symptoms vs. signs that need a check-up</li><li>Tracking the cycle, mood changes and mental health</li></ul>
+        </article>
+        <article class="corner" data-c="c">
+          <span class="k">Corner C</span><h3>Safe digital bridge</h3>
+          <p>An acrylic or fabric QR card built into the bag.</p>
+          <ul><li>QR-enabled multilingual audio and video resources, with downloadable content for offline access</li><li>Voiced by ambassadors from the same local community</li><li>An anonymous question button with no personal data recorded</li></ul>
+        </article>
+        <div class="kit-tabs" role="tablist">
+          <button class="on" data-c="a">A · Care</button><button data-c="b">B · Cards</button><button data-c="c">C · Digital</button>
+        </div>
+        <button class="btn dark" id="openPreview" type="button">Live preview <span class="arrow">↗</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="impact-strip" aria-label="Kit impact">
+  <div class="sadu-band" aria-hidden="true"></div>
+  <div class="wrap strip-in">
+    <svg width="44" height="44" viewBox="0 0 256 256" aria-hidden="true"><use href="#mark"/></svg>
+    <p>Every Karama Kit that reaches a Bedouin woman or a young university student is a window of knowledge and safety, and a step toward stronger preventive health.</p>
+    <p class="ar" dir="rtl" lang="ar">كل حقيبة كرامة تصل إلى امرأة بدوية أو شابة جامعية تمثل نافذة معرفة وأمان، مساهمةً في تعزيز الصحة الوقائية.</p>
+  </div>
+  <div class="sadu-band" aria-hidden="true"></div>
+</section>
+
+<dialog class="pv" id="preview" aria-labelledby="pvTitle">
+  <div class="pv-head">
+    <h3 id="pvTitle">Karama Kit · live preview</h3>
+    <button class="pv-x" id="pvClose" aria-label="Close preview">✕</button>
+  </div>
+  <div class="pv-tabs" role="tablist">
+    <button class="on" data-p="qr" role="tab">Scan the QR</button>
+    <button data-p="audio" role="tab">Sample audio</button>
+    <button data-p="cards" role="tab">Sadu cards</button>
+  </div>
+
+  <div class="pv-pane on" data-p="qr">
+    <div class="scanner" id="scanner">
+      <div class="vf"><svg width="120" height="120" viewBox="0 0 7 7" shape-rendering="crispEdges"><path fill="#2a0a18" d="M0 0h3v3H0zM4 0h3v3H4zM0 4h3v3H0zM4 4h1v1H4zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4zM6 6h1v1H6z"/><path fill="#fff" d="M1 1h1v1H1zM5 1h1v1H5zM1 5h1v1H1z"/></svg><span class="line"></span><i></i><i></i><i></i><i></i></div>
+      <button class="btn pink" id="scanBtn" type="button">Simulate scan</button>
+      <p class="note">Virtual scan. No camera is used.</p>
+    </div>
+    <div class="scanned" id="scanned" hidden>
+      <span class="ok">✓ Library opened · no account, no data</span>
+      <div class="lib-row"><b>My body, my health</b><small>Audio · plays offline</small></div>
+      <div class="lib-row"><b>When the heart feels heavy</b><small>Audio · plays offline</small></div>
+      <div class="lib-row"><b>Prevention starts early</b><small>Short video</small></div>
+      <div class="lib-row ask"><b>Ask anonymously</b><small>Opens the private question box</small></div>
+      <button class="btn light" id="rescan" type="button">Scan again</button>
+    </div>
+  </div>
+
+  <div class="pv-pane" data-p="audio">
+    <div class="player">
+      <button class="pp" id="pp" aria-label="Play sample"><svg width="20" height="20" viewBox="0 0 14 14"><path id="ppi" d="M11 7 4 11V3z" fill="#fff"/></svg></button>
+      <div class="pmeta"><b>Episode 01 · My body, my health</b><small>Voiced by a local Karama ambassador</small>
+        <div class="pwave" id="pwave"></div>
+        <div class="ptime"><span id="pcur">0:00</span><span>0:30</span></div>
+      </div>
+    </div>
+    <p class="note">Demo player. The real recordings, in the local dialect, are in production.</p>
+  </div>
+
+  <div class="pv-pane" data-p="cards">
+    <div class="scards">
+      <button class="scard" type="button"><span class="f"><span class="band"></span><svg viewBox="0 0 48 48" width="56" height="56"><path d="M24 8c-6 0-10 4-10 9 0 7 10 11 10 23 0-12 10-16 10-23 0-5-4-9-10-9z" fill="none" stroke="#e0457f" stroke-width="3"/><circle cx="24" cy="17" r="4" fill="#a3214f"/></svg><b>Daily self-care</b></span><span class="b">Wash with gentle soap, change pads every 4–6 hours, drink water and rest.</span></button>
+      <button class="scard" type="button"><span class="f"><span class="band"></span><svg viewBox="0 0 48 48" width="56" height="56"><path d="M24 6 42 40H6z" fill="none" stroke="#e0457f" stroke-width="3" stroke-linejoin="round"/><path d="M24 18v10" stroke="#a3214f" stroke-width="3.5" stroke-linecap="round"/><circle cx="24" cy="34" r="2.2" fill="#a3214f"/></svg><b>When to get checked</b></span><span class="b">Very heavy bleeding, severe pain, fever or unusual discharge: visit a clinic.</span></button>
+      <button class="scard" type="button"><span class="f"><span class="band"></span><svg viewBox="0 0 48 48" width="56" height="56"><circle cx="24" cy="24" r="16" fill="none" stroke="#e0457f" stroke-width="3"/><path d="M24 8a16 16 0 0 1 0 32" fill="#f3c2d4"/><circle cx="24" cy="8" r="3" fill="#a3214f"/></svg><b>Track your cycle</b></span><span class="b">Mark the first day each month. A regular rhythm is usually 21–35 days.</span></button>
+      <button class="scard" type="button"><span class="f"><span class="band"></span><svg viewBox="0 0 48 48" width="56" height="56"><circle cx="24" cy="24" r="16" fill="none" stroke="#e0457f" stroke-width="3"/><circle cx="18" cy="20" r="2" fill="#a3214f"/><circle cx="30" cy="20" r="2" fill="#a3214f"/><path d="M17 30c4 4 10 4 14 0" fill="none" stroke="#a3214f" stroke-width="3" stroke-linecap="round"/></svg><b>Mood &amp; mind</b></span><span class="b">Low for more than two weeks? Talk to someone you trust or a specialist.</span></button>
+    </div>
+    <p class="note">Tap a card to flip it. Real cards are durable, reusable and pictogram-first.</p>
+  </div>
+</dialog>
+
 <section class="flow" id="how">
   <div class="wrap">
     <div class="head rv"><span class="eyebrow">How it works</span><h2>The Karama journey, step by step</h2><p class="lead">From the kit in her hands to support she can trust. Scroll to follow one beneficiary through it.</p></div>
@@ -586,7 +879,21 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
         <li class="step" data-i="3"><span class="k">STEP 04</span><h3>She asks anonymously</h3><p>The hardest questions go into the anonymous box and get answered in the next session.</p></li>
         <li class="step" data-i="4"><span class="k">STEP 05</span><h3>Support and measured impact</h3><p>When needed she is referred to a trusted partner, and pre and post surveys measure what changed.</p></li>
       </ol>
-      <div class="phone-wrap"><div class="phone" aria-hidden="true"><span class="notch"></span>
+      <div class="phone-wrap"><div class="bag3d" id="bag3d" aria-hidden="true">
+          <span class="b3-badge" id="b3badge">Karama Kit · 3D</span>
+          <span class="b3-shadow"></span>
+          <div class="b3-float"><div class="b3-spin" id="b3spin">
+            <span class="b3-handle h2"></span>
+            <span class="b3-card c2"></span><span class="b3-card c3"></span><span class="b3-card c1"></span>
+            <div class="b3 top"></div><div class="b3 bottom"></div>
+            <div class="b3 back"><span class="band"></span><svg width="110" height="60" viewBox="0 0 110 60"><g stroke="#a3214f" stroke-width="6" stroke-linecap="round"><path d="M10 24v12M24 14v32M38 6v48M52 18v24M66 8v44M80 16v28M94 24v12"/></g></svg><span class="b3-tag">AUDIO LIBRARY</span></div>
+            <div class="b3 left"><svg width="54" height="54" viewBox="0 0 54 54"><path d="M8 6h38a6 6 0 0 1 6 6v22a6 6 0 0 1-6 6H24l-10 9v-9H8a6 6 0 0 1-6-6V12a6 6 0 0 1 6-6z" fill="#a3214f"/><rect x="18" y="20" width="18" height="12" rx="3" fill="#fff"/><path d="M21 20v-4a6 6 0 0 1 12 0v4" fill="none" stroke="#fff" stroke-width="3"/></svg></div>
+            <div class="b3 right"><svg width="56" height="56" viewBox="0 0 7 7" shape-rendering="crispEdges"><rect width="7" height="7" fill="#fff"/><path fill="#2a0a18" d="M0 0h3v3H0zM4 0h3v3H4zM0 4h3v3H0zM4 4h1v1H4zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4zM6 6h1v1H6z"/><path fill="#fff" d="M1 1h1v1H1zM5 1h1v1H5zM1 5h1v1H1z"/></svg></div>
+            <div class="b3 front"><span class="band"></span><svg width="64" height="64" viewBox="0 0 256 256"><use href="#mark"/></svg><span class="b3-tag">SEHA &amp; KARAMA</span></div>
+            <span class="b3-handle h1"></span>
+          </div></div>
+          <span class="b3-hint">Drag to turn ↔</span>
+        </div><div class="phone" aria-hidden="true"><span class="notch"></span>
         <div class="screen act" data-i="0"><span class="ttl">Karama Kit</span><h4>Inside your bag</h4>
           <div class="sc-card"><div class="sc-row"><i><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5.2l2 2L8 3" fill="none" stroke="#fff" stroke-width="1.8"/></svg></i>Self-care essentials</div><div class="sc-row"><i><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5.2l2 2L8 3" fill="none" stroke="#fff" stroke-width="1.8"/></svg></i>Pictogram flashcards</div><div class="sc-row"><i><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5.2l2 2L8 3" fill="none" stroke="#fff" stroke-width="1.8"/></svg></i>QR to the audio library</div></div>
           <svg viewBox="0 0 256 256" width="90" height="90" style="margin:6px auto 0;display:block"><use href="#mark"/></svg><div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
@@ -632,7 +939,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     <div class="head rv">
       <span class="eyebrow">Audio &amp; video library</span>
       <h2>Listen in your own time, in private</h2>
-      <p class="lead">This is where the QR code on the kit leads. Episodes are being prepared with specialists and will be downloadable for offline listening.</p>
+      <p class="lead">This is where the QR code on the kit leads. Multilingual audio and video episodes are being prepared with specialists, with downloadable content for offline access.</p>
     </div>
     <div class="eps">
       <div class="ep rv"><span class="play"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M11 7 4 11V3z" fill="#fff"/></svg></span><div class="m"><b>My body, my health: reproductive health basics</b><small>Reproductive health · Short podcast</small></div><span class="chip">Soon</span></div>
@@ -681,6 +988,29 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
   </div>
 </section>
 
+<section class="blush" id="evaluation">
+  <div class="wrap">
+    <div class="head rv"><span class="eyebrow">Impact measurement &amp; evaluation</span><h2>Measured from day one</h2><p class="lead">Every workshop is assessed anonymously, so we know what changed without collecting personal data.</p></div>
+    <div class="ev-grid">
+      <div class="ev-list rv">
+        <article class="ev-item"><span class="ev-n">01</span><div><h3>Pre- and post-workshop assessments</h3><p>Short, anonymous QR-based questionnaires to measure improvements in participants’ health knowledge.</p></div></article>
+        <article class="ev-item"><span class="ev-n">02</span><div><h3>Three evaluation pillars</h3><p>Prevention and self-care awareness, identification of early warning signs, and knowledge of professional support pathways.</p></div></article>
+        <article class="ev-item"><span class="ev-n">03</span><div><h3>Follow-up evaluation</h3><p>Optional anonymous surveys conducted 4–6 weeks after workshops to assess self-reported behavior change.</p></div></article>
+      </div>
+      <div class="kpi rv" id="kpi">
+        <span class="bk">Key performance indicators · targets</span>
+        <div class="kpi-grid">
+          <div><b><span data-count="20">20</span>%</b><small>Average improvement in knowledge scores</small></div>
+          <div><b><span data-count="80">80</span>%</b><small>Positive workshop feedback</small></div>
+          <div><b><span data-count="70">70</span>%</b><small>Participants identifying appropriate professional support pathways</small></div>
+          <div><b><span data-count="100">100</span> · <span data-count="20">20</span></b><small>Kits distributed · health ambassadors trained</small></div>
+        </div>
+      </div>
+    </div>
+    <p class="ev-note">All figures are proposed pilot targets, subject to implementation and evaluation.</p>
+  </div>
+</section>
+
 <section class="dark" id="impact" style="padding:90px 0 130px">
   <div class="wrap">
     <div class="panel" id="panel">
@@ -688,16 +1018,17 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
         <span class="tile t1"><svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 3v22M4.5 8.5l19 11M23.5 8.5l-19 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
         <span class="tile t2"><svg width="26" height="26" viewBox="0 0 26 26" fill="currentColor"><circle cx="7" cy="7" r="3.2"/><circle cx="19" cy="7" r="3.2"/><circle cx="7" cy="19" r="3.2"/><circle cx="19" cy="19" r="3.2"/></svg></span>
         <h2>Measured<br>for every<br>woman<br>and girl</h2>
-        <p>Pre and post surveys track the Preventive Health Index, alongside beneficiaries reached, volunteer hours and ambassadors trained.</p>
+        <p>Anonymous pre- and post-workshop assessments, a 4–6 week follow-up and clear pilot KPIs show what changed for every participant.</p>
       </div>
       <div class="icard lt">
         <div class="bars" id="bars">
-          <div class="r"><span>Karama hybrid kits &amp; cards</span><b>$400–800</b><span class="tr"><i style="transform:scaleX(.4)" data-w=".4"></i></span></div>
-          <div class="r"><span>Digital audio, video &amp; site</span><b>$300–600</b><span class="tr"><i style="transform:scaleX(.3)" data-w=".3"></i></span></div>
-          <div class="r"><span>Workshops &amp; ambassador training</span><b>$200–400</b><span class="tr"><i style="transform:scaleX(.2)" data-w=".2"></i></span></div>
-          <div class="r"><span>Operations &amp; evaluation</span><b>$100–200</b><span class="tr"><i style="transform:scaleX(.1)" data-w=".1"></i></span></div>
+          <span class="bk">Operational budget</span>
+          <div class="r"><span>Kits &amp; Sadu pictogram cards</span><b>$700</b><span class="tr"><i style="transform:scaleX(.467)" data-w=".467"></i></span></div>
+          <div class="r"><span>QR-enabled multilingual audio and video resources, with downloadable content for offline access</span><b>$300</b><span class="tr"><i style="transform:scaleX(.2)" data-w=".2"></i></span></div>
+          <div class="r"><span>“Fingal Karama” workshops &amp; ambassador training</span><b>$300</b><span class="tr"><i style="transform:scaleX(.2)" data-w=".2"></i></span></div>
+          <div class="r"><span>Evaluation, PHI metrics &amp; operations</span><b>$200</b><span class="tr"><i style="transform:scaleX(.133)" data-w=".133"></i></span></div>
         </div>
-        <div><div class="big">$<span data-count="2000" data-fmt="1">2,000</span></div><div class="cap">Seed budget ceiling (from $1,000)</div></div>
+        <div><div class="big">$<span data-count="1500" data-fmt="1">1,500</span></div><div class="cap">Total seed budget · 100-kit pilot</div></div>
       </div>
       <div class="icard dk2">
         <svg class="badge" width="170" height="120" viewBox="0 0 170 120" aria-label="Aligned with Vision 2030 badge">
@@ -716,6 +1047,10 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
         </svg>
         <div class="prepost"><div><b>PRE</b><small>survey</small></div><svg width="22" height="12" viewBox="0 0 22 12"><path d="M1 6h19M15 1l5 5-5 5" fill="none" stroke="#ff9fc2" stroke-width="1.6"/></svg><div><b>POST</b><small>survey</small></div></div>
         <div><div class="big"><span data-count="100">100</span>%</div><div class="cap">Anonymous questions. No personal data collected.</div></div>
+      </div>
+      <div class="justify">
+        <span class="bk">Budget justification</span>
+        <p>The proposed $1,500 seed budget supports a 100-kit pilot, with a direct materials allocation of <b>$7.50 per kit</b>. Essential care items will be prioritized, while additional products, professional support, and workshop facilities will be sought through in-kind contributions and institutional partnerships. Budget estimates are subject to supplier quotations.</p>
       </div>
     </div>
   </div>
@@ -850,6 +1185,12 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 
 
 
+  /* KPI counters on enter */
+  var kpiEl=document.getElementById('kpi');
+  if(kpiEl&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){o.disconnect();kpiEl.querySelectorAll('[data-count]').forEach(function(n){countUp(n,1300)})}})},{threshold:.35}).observe(kpiEl);
+  }
+
   /* light reveals */
   var rvs=document.querySelectorAll('.rv');
   if('IntersectionObserver' in window&&!reduce){
@@ -857,12 +1198,24 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     rvs.forEach(function(n){ro.observe(n)});
   } else rvs.forEach(function(n){n.classList.add('in')});
 
+
+  /* 3D bag: turns with each step, drag to spin */
+  var b3=document.getElementById('b3spin'),bag3d=document.getElementById('bag3d'),b3badge=document.getElementById('b3badge');
+  var b3Angles=[-24,-112,-204,-292,-384],b3Labels=['Inside the kit','The QR side','Audio library','Anonymous box','Karama Kit'],b3Step=0,b3Drag=0;
+  function b3Set(){b3.style.transform='rotateX(-14deg) rotateY('+(b3Angles[b3Step]+b3Drag)+'deg)'}
+  window.b3Go=function(i){b3Step=i;b3Drag=0;b3Set();b3badge.textContent=b3Labels[i]};
+  (function(){var down=false,x0=0,d0=0;
+    bag3d.addEventListener('pointerdown',function(e){down=true;x0=e.clientX;d0=b3Drag;b3.classList.add('drag');bag3d.setPointerCapture(e.pointerId)});
+    bag3d.addEventListener('pointermove',function(e){if(!down)return;b3Drag=d0+(e.clientX-x0)*.6;b3Set()});
+    function up(){down=false;b3.classList.remove('drag')}
+    bag3d.addEventListener('pointerup',up);bag3d.addEventListener('pointercancel',up);
+  })();
   /* sticky step flow */
   var steps=document.querySelectorAll('.step'),screens=document.querySelectorAll('.screen');
   if('IntersectionObserver' in window){
     var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=+e.target.dataset.i;
       steps.forEach(function(s){s.classList.toggle('act',+s.dataset.i===i)});
-      screens.forEach(function(s){s.classList.toggle('act',+s.dataset.i===i)});}})},{rootMargin:'-45% 0px -45% 0px'});
+      screens.forEach(function(s){s.classList.toggle('act',+s.dataset.i===i)});if(window.b3Go)b3Go(i);}})},{rootMargin:'-45% 0px -45% 0px'});
     steps.forEach(function(s){so.observe(s)});
   }
 
@@ -871,6 +1224,56 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
   form.addEventListener('submit',function(e){e.preventDefault();var q=document.getElementById('question');
     if(!q.value.trim()){msg.textContent='Write your question first, then press send.';msg.classList.add('show');return}
     msg.textContent='Thank you for trusting us. This is a preview, so your question was not sent. At launch it will go straight to the specialists with no data about you.';msg.classList.add('show');q.value='';});
+
+  /* Karama Kit: hotspots + tabs */
+  var kitStage=document.getElementById('kitStage');
+  function pickCorner(c){
+    kitStage.classList.add('sel');
+    document.querySelectorAll('#kit .kit-item, #kit .hot, #kit .corner').forEach(function(n){n.classList.toggle('act',n.dataset.c===c)});
+    document.querySelectorAll('#kit .kit-tabs button').forEach(function(n){n.classList.toggle('on',n.dataset.c===c)});
+  }
+  document.querySelectorAll('#kit .hot, #kit .kit-tabs button').forEach(function(b){b.addEventListener('click',function(){pickCorner(b.dataset.c)})});
+
+  /* Live preview modal */
+  var pv=document.getElementById('preview');
+  function pvTab(p){
+    pv.querySelectorAll('.pv-tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.p===p)});
+    pv.querySelectorAll('.pv-pane').forEach(function(x){x.classList.toggle('on',x.dataset.p===p)});
+    if(p!=='audio')stopAudio();
+  }
+  document.getElementById('openPreview').addEventListener('click',function(){
+    var cur=document.querySelector('#kit .corner.act');pvTab(cur&&cur.dataset.c==='c'?'qr':(cur&&cur.dataset.c==='b'?'cards':'qr'));
+    if(pv.showModal)pv.showModal();else pv.setAttribute('open','');
+  });
+  document.getElementById('pvClose').addEventListener('click',function(){stopAudio();pv.close()});
+  pv.addEventListener('click',function(e){if(e.target===pv){stopAudio();pv.close()}});
+  pv.addEventListener('close',stopAudio);
+  pv.querySelectorAll('.pv-tabs button').forEach(function(b){b.addEventListener('click',function(){pvTab(b.dataset.p)})});
+
+  /* virtual QR scan */
+  var vf=document.querySelector('#scanner .vf'),scanner=document.getElementById('scanner'),scanned=document.getElementById('scanned');
+  document.getElementById('scanBtn').addEventListener('click',function(){
+    vf.classList.remove('go');void vf.offsetWidth;vf.classList.add('go');
+    setTimeout(function(){scanner.hidden=true;scanned.hidden=false},reduce?0:2200);
+  });
+  document.getElementById('rescan').addEventListener('click',function(){scanned.hidden=true;scanner.hidden=false;vf.classList.remove('go')});
+  scanned.querySelector('.ask').addEventListener('click',function(){pv.close();location.hash='#safe'});
+  scanned.querySelector('.ask').style.cursor='pointer';
+
+  /* demo audio player (visual only) */
+  var wave=document.getElementById('pwave'),hs=[14,26,38,22,34,30,18,40,28,36,20,32,24,38,16,30,26,34,20,28,36,22,30,18];
+  wave.innerHTML=hs.map(function(h){return '<b style="height:'+h+'px"></b>'}).join('');
+  var bars=wave.children,pt=0,pTimer=null,ppi=document.getElementById('ppi'),pcur=document.getElementById('pcur'),DUR=30;
+  function drawP(){var n=Math.round(pt/DUR*bars.length);for(var i=0;i<bars.length;i++)bars[i].classList.toggle('on',i<n);pcur.textContent='0:'+(pt<10?'0':'')+pt}
+  function stopAudio(){if(pTimer){clearInterval(pTimer);pTimer=null}ppi.setAttribute('d','M11 7 4 11V3z')}
+  document.getElementById('pp').addEventListener('click',function(){
+    if(pTimer){stopAudio();return}
+    if(pt>=DUR)pt=0;ppi.setAttribute('d','M3 2h3v10H3zM8 2h3v10H8z');
+    pTimer=setInterval(function(){pt++;drawP();if(pt>=DUR)stopAudio()},1000);drawP();
+  });
+
+  /* Sadu card flip */
+  pv.querySelectorAll('.scard').forEach(function(c){c.addEventListener('click',function(){c.classList.toggle('flip')})});
 })();
 </script>
 </body>
